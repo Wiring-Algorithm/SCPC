@@ -33,9 +33,10 @@ int main(void)
 			for (j = 0; j < t; j++) {
 				if (i != j) {
 		distance_first = min( max( abs(L1[i][0].x - L1[j][0].x), abs(L1[i][0].y - L1[j][0].y)), max(abs(L1[i][0].x - L1[j][1].x), abs(L1[i][0].y - L1[j][1].y)));
+		if (distance_first > max_first)
+		max_first = distance_first;
 		distance_second = min( max( abs(L1[i][1].x - L1[j][0].x), abs(L1[i][1].y - L1[j][0].y)), max(abs(L1[i][1].x - L1[j][1].x), abs(L1[i][1].y - L1[j][1].y)));
-					if (distance_first > max_first)
-						max_first = distance_first;
+					
 					if (distance_second> max_second)
 						max_second = distance_second;
 				}
