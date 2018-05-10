@@ -4,7 +4,7 @@
 int main(void) {
 	int t, N;
 	int solve(int);
-	setbuf(stdout, NULL);
+	//setbuf(stdout, NULL);
 	scanf("%d", &t);
 	for (int test_case = 0; test_case < t; test_case++) {
 		scanf("%d", &N);
@@ -15,28 +15,28 @@ int main(void) {
 }
 
 int solve(int N) {
-	int digit2=N, digit3=N,b,basis,answer;
-/*
-    for(basis=2;basis<=N;basis++){
-        long temp=basis;
-        for(i=2;i<=N;i++){
-            if(temp>N)
-            break;
-            	if (N % (int)((temp*basis - 1) / (basis - 1)) == 0 && N / (int)((temp*basis - 1) / (basis - 1))<basis) {
-    			    return N;
-				break;
-            }
-        }
-    }   --> for(basis<=N) -> overflow
-        N = 1000000007ÀÎ °æ¿ì ¸ğµç for¹®À» µµ´Âµ¥ if¹®¿¡ °É¸®Áö ¾ÊÀ½ -> time limit
-        for¹®ÀÇ NÀ» ¾î¶»°Ô ÁÙÀÏ±î?
-        3ÀÚ¸® ¼ö ÀÌ»óÀÇ °æ¿ì b^2 + b^1 + b^0 --> b^2 b°¡ ·çÆ®NÀÌ ³ÑÀ¸¸é Nº¸´Ù Å©¹Ç·Î
-        ·çÆ®N±îÁöÀÇ ¹üÀ§·Î ¹Ù²Ù°í °è»êÇÏ¿© ´äÀÌ ¾ø´Â °æ¿ì¿¡¸¸
-        2ÀÚ¸® °æ¿ì¸¦ µû·Î °è»êÇØÁÖ¸é µÊ(ÀÚ¸®¼ö°¡ Å¬¼ö·Ï b°¡ ÀÛ±â ¶§¹®¿¡)
-*/
-	// i==3ÀÌ»óÀÎ °æ¿ì N = (b^i + b^i-1 + .... + b^1 + b^0)k
+	int digit2 = N, digit3 = N, b, basis, answer;
+	/*
+	for(basis=2;basis<=N;basis++){
+	long temp=1;
+	for(i=1;i<=N;i++){
+	if(temp>N)
+	break;
+	if (N % (int)((temp*basis - 1) / (basis - 1)) == 0 && N / (int)((temp*basis - 1) / (basis - 1))<basis) {
+	return N;
+	break;
+	}
+	}
+	}   --> for(basis<=N) -> overflow
+	N = 1000000007ì¸ ê²½ìš° ëª¨ë“  forë¬¸ì„ ë„ëŠ”ë° ifë¬¸ì— ê±¸ë¦¬ì§€ ì•ŠìŒ -> time limit
+	forë¬¸ì˜ Nì„ ì–´ë–»ê²Œ ì¤„ì¼ê¹Œ?
+	3ìë¦¬ ìˆ˜ ì´ìƒì˜ ê²½ìš° b^2 + b^1 + b^0 --> b^2 bê°€ ë£¨íŠ¸Nì´ ë„˜ìœ¼ë©´ Në³´ë‹¤ í¬ë¯€ë¡œ
+	ë£¨íŠ¸Nê¹Œì§€ì˜ ë²”ìœ„ë¡œ ë°”ê¾¸ê³  ê³„ì‚°í•˜ì—¬ ë‹µì´ ì—†ëŠ” ê²½ìš°ì—ë§Œ
+	2ìë¦¬ ê²½ìš°ë¥¼ ë”°ë¡œ ê³„ì‚°í•´ì£¼ë©´ ë¨(ìë¦¬ìˆ˜ê°€ í´ìˆ˜ë¡ bê°€ ì‘ê¸° ë•Œë¬¸ì—)
+	*/
+	// i==3ì´ìƒì¸ ê²½ìš° N = (b^i + b^i-1 + .... + b^1 + b^0)k
 	for (basis = 2; basis <= (int)sqrt(N); basis++) {
-		long temp = basis*basis;
+		long temp = basis * basis;
 		for (int i = 3; i <= (int)sqrt(N); i++) {
 			if (temp>N)
 				break;
@@ -48,27 +48,28 @@ int solve(int N) {
 			temp *= basis;
 		}
 	}
-	if (basis == (int)sqrt(N)+1) {     // if¹® Åë°ú x -> ´ä x
+	if (basis == (int)sqrt(N) + 1) {     // ifë¬¸ í†µê³¼ x -> ë‹µ x
 		digit3 = N - 1;
-	
-	// i==2ÀÎ °æ¿ì N = (b^1 + b^0)k       k°¡ Å¬¼ö·Ï b°ª °¨¼Ò
-	for (int k = (int)sqrt(N); k >= 2; k--) {
-		if (N%k == 0) {
-			b = N / k - 1;
-			if (b > k) {
-				digit2 = b;
-				break;
+
+		// i==2ì¸ ê²½ìš° N = (b^1 + b^0)k       kê°€ í´ìˆ˜ë¡ bê°’ ê°ì†Œ
+		// këŠ” b(ì§„ìˆ˜)ë³´ë‹¤ ë‚®ì•„ì•¼ í•˜ë¯€ë¡œ k>ë£¨íŠ¸N
+		for (int k = (int)sqrt(N); k >= 1; k--) {
+			if (N%k == 0) {
+				b = N / k - 1;
+				if (b > k) {
+					digit2 = b;
+					break;
+				}
 			}
 		}
 	}
-	}
-	if(digit2<digit3)
-	digit3=digit2;
+	if (digit2<digit3)
+		digit3 = digit2;
 
-    //¸ğµÎ k>=2, i>=3ÀÌ¹Ç·Î  N=1,2,3ÀÇ °æ¿ì for¹®À» µ¹¾Æ°¡Áö ¾ÊÀ¸¹Ç·Î µû·Î ´äÀ» ¼³Á¤
+	//N-1ì˜ ì˜ˆì™¸ìƒí™© : N=1,N=2 -> b=0,1ì´ ë‚˜ì˜¤ì§€ë§Œ b>=2ì—¬ì•¼ í•˜ë¯€ë¡œ 
 	if (N == 1) digit3 = 2;
 	if (N == 2) digit3 = 3;
-	if (N == 3) digit3 = 2;
 
 	return digit3;
 }
+
