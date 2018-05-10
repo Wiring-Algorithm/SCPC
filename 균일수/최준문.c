@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 /*
 	수행시간 : 1.00026
 	메모리   : 6500
 	점수     : 106.5 점
 */
 
+=======
+>>>>>>> 94c99aa59720d6ef84e2bcf95300a137a03cef15
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -20,7 +23,11 @@ int main(void)
 	{
 		scanf("%d", &N);
 		Answer = getBase(N);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 94c99aa59720d6ef84e2bcf95300a137a03cef15
 		printf("Case #%d\n", test_case + 1);
 		printf("%d\n", Answer);
 
@@ -37,7 +44,11 @@ int getBase(int Num)
 
 	//if (Num % 2 == 0)	b = 3;
 	
+<<<<<<< HEAD
 		for (int x = b; x <= 1000000000; x++)
+=======
+		for (int x = b; x <= N; x++)
+>>>>>>> 94c99aa59720d6ef84e2bcf95300a137a03cef15
 		{
 			Share = Num / x;
 			Rest = Num % x;
