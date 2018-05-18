@@ -51,15 +51,15 @@ void floyd_warshall() {
 				if (point[i].dis[j] >= point[i].dis[k] + point[k].dis[j]) {
 					//	printf("ij = %d ik = %d jk = %d\n", point[i].dis[j], point[i].dis[k], point[k].dis[j]);
 					//	printf("k = %d\n", k);
-				//	anw[point[i].path[j]]--;
+						anw[point[i].path[j]]--;
 					if (point[i].dis[j] > point[i].dis[k] + point[k].dis[j]) {
 						point[i].dis[j] = point[i].dis[k] + point[k].dis[j];
 						point[j].dis[i] = point[i].dis[k] + point[k].dis[j];
-					//	point[i].path[j] = k;
+						point[i].path[j] = k;
 						anw[k]++;
 					}
 					else{
-					 //   point[i].path[j]=0;
+					    point[i].path[j]=0;
 					}
 					
 				}	
